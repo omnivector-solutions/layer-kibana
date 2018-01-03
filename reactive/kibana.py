@@ -15,7 +15,7 @@ from charms.reactive import (
 )
 from charmhelpers.core.hookenv import (
     application_version_set,
-    # config,
+    config,
     network_get,
     status_set,
 )

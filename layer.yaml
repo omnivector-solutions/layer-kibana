@@ -5,6 +5,9 @@ includes:
   - 'layer:nginx'
   - 'interface:http'
 options:
+  basic:
+    packages:
+      - apache2-utils
   elastic-base:
     elastic-pkg: "kibana"
 repo: "https://github.com/jamesbeedy/layer-kibana"

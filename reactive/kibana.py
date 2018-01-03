@@ -115,7 +115,7 @@ def render_kibana_nginx_conf():
         os.remove(pw_file)
 
     sp.call('htpasswd -ibc {} admin {}'.format(
-        pw_file, config('kibana-password'))
+        pw_file, config('kibana-password')))
 
     configure_site('kibana-front-end', 'nginx.conf.j2')
     status_set('active', 'NGINX Configured')

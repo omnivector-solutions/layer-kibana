@@ -1,0 +1,6 @@
+options:
+  kibana-password:
+    type: string
+    default: "mysecret"
+    description: |
+      Password to use infront of kibana

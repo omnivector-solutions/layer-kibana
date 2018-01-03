@@ -1,0 +1,10 @@
+includes:
+  - 'layer:basic'
+  - 'layer:elastic-base'
+  - 'layer:elasticsearch-client'
+  - 'layer:nginx'
+  - 'interface:http'
+options:
+  elastic-base:
+    elastic-pkg: "kibana"
+repo: "https://github.com/jamesbeedy/layer-kibana"

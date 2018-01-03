@@ -46,21 +46,6 @@ kv = unitdata.kv()
 register_trigger(when='kibana.version.set',
                  set_flag='kibana.init.complete')
 
-# register_trigger(when='elasticsearch.grafana.available',
-#                  clear_flag='elasticsearch.grafana.unavailable')
-
-# register_trigger(when='elasticsearch.grafana.unavailable',
-#                  clear_flag='elasticsearch.grafana.available')
-
-
-# Utility Handlers
-@when('kibana.needs.restart')
-def restart_kibana():
-    """Restart kibana
-    """
-    service_restart('kibana')
-    clear_flag('kibana.needs.restart')
-
 
 @when_any('apt.installed.kibana',
           'deb.installed.kibana')
@@ -125,10 +110,12 @@ def get_set_kibana_version():
 @when_not('kibana.nginx.conf.available')
 def render_kibana_nginx_conf():
     status_set('maintenance', 'Configuring NGNX')
-    # render_file(
-    #    'users.j2',
-    #    '/etc/nginx/htpasswd.users',
-    #    {'password': config('kibana-password')})
+    pw_file = '/etc/nginx/htpasswd.users'
+    if os.path.exists(pw_file):
+        os.remove(pw_file)
+
+    sp.call('htpasswd -ibc {} admin {}'.format(
+        pw_file, config('kibana-password'))
 
     configure_site('kibana-front-end', 'nginx.conf.j2')
     status_set('active', 'NGINX Configured')

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # pylint: disable=c0111,c0103,c0301
+import os
 import subprocess as sp
 from time import sleep
 
@@ -17,6 +18,7 @@ from charmhelpers.core.hookenv import (
     application_version_set,
     config,
     network_get,
+    open_port,
     status_set,
 )
 from charmhelpers.core.host import (
@@ -38,7 +40,6 @@ from charms.layer.kibana import (
 
 
 PRIVATE_IP = network_get('http')['ingress-addresses'][0]
-
 
 kv = unitdata.kv()
 
@@ -115,9 +116,10 @@ def render_kibana_nginx_conf():
         os.remove(pw_file)
 
     sp.call('htpasswd -ibc {} admin {}'.format(
-        pw_file, config('kibana-password')))
+        pw_file, config('kibana-password')).split())
 
     configure_site('kibana-front-end', 'nginx.conf.j2')
+    open_port(80)
     status_set('active', 'NGINX Configured')
 
     set_flag('kibana.nginx.conf.available')

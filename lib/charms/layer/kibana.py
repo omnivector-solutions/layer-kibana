@@ -9,7 +9,6 @@ from jinja2 import Environment, FileSystemLoader
 
 from charmhelpers.core.hookenv import (
     charm_dir,
-    network_get,
 )
 
 from charmhelpers.core.host import (
@@ -18,10 +17,6 @@ from charmhelpers.core.host import (
     service_restart
 )
 
-
-PUBLIC_ADDRESS = network_get('public')['ingress-addresses'][0]
-
-ES_NETWORK_ADDRESS = network_get('cluster')['ingress-addresses'][0]
 
 KIBANA_YML_PATH = os.path.join('/', 'etc', 'kibana', 'kibana.yml')
 

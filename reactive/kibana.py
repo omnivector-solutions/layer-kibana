@@ -127,6 +127,11 @@ def render_kibana_nginx_conf():
     set_flag('kibana.nginx.conf.available')
 
 
+@when('kibana.nginx.conf.available')
+def kibana_available_status_persist():
+    status_set('active', 'Kibana available')
+
+
 @when('kibana.nginx.conf.available',
       'endpoint.http.joined')
 @when_not('http.relation.data.available')

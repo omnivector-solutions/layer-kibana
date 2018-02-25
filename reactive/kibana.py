@@ -4,9 +4,7 @@ import os
 import subprocess as sp
 from time import sleep
 
-
 from charms.reactive import (
-    clear_flag,
     endpoint_from_flag,
     register_trigger,
     set_flag,
@@ -69,10 +67,10 @@ def ensure_kibana_started():
     sp.call("systemctl daemon-reload".split())
     sp.call("systemctl enable kibana.service".split())
 
-    # If kibana isn't running start it
+    # Ensure kibana is start/restarted following
+    # placement of kibana.yml
     if not service_running('kibana'):
         service_start('kibana')
-    # If elasticsearch is running restart it
     else:
         service_restart('kibana')
 
@@ -110,7 +108,11 @@ def get_set_kibana_version():
       'kibana.init.complete')
 @when_not('kibana.nginx.conf.available')
 def render_kibana_nginx_conf():
+    """Render NGINX conf and write out htpasswd file
+    """
+
     status_set('maintenance', 'Configuring NGNX')
+
     pw_file = '/etc/nginx/htpasswd.users'
     if os.path.exists(pw_file):
         os.remove(pw_file)
@@ -120,8 +122,8 @@ def render_kibana_nginx_conf():
 
     configure_site('kibana-front-end', 'nginx.conf.j2')
     open_port(80)
-    status_set('active', 'NGINX Configured')
 
+    status_set('active', 'NGINX Configured')
     set_flag('kibana.nginx.conf.available')
 
 

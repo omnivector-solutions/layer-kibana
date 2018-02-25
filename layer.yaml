@@ -10,4 +10,4 @@ options:
       - apache2-utils
   elastic-base:
     elastic-pkg: "kibana"
-repo: "https://github.com/jamesbeedy/layer-kibana"
+repo: "https://github.com/omnivector-solutions/layer-kibana"

@@ -1,5 +1,5 @@
-.PHONY: test
-test:
+.PHONY: lint
+lint:
 	@tox
 
 build:

@@ -17,6 +17,7 @@ tags:
   - visualization
 series:
 - xenial
+- bionic
 subordinate: false
 provides:
   http:

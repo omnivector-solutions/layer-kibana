@@ -46,14 +46,12 @@ register_trigger(when='kibana.version.set',
                  set_flag='kibana.init.complete')
 
 
-@when_any('apt.installed.kibana',
-          'deb.installed.kibana')
+@when('elastic.base.available')
 @when_not('kibana.yml.available')
 def render_kibana_conifg():
     """Render /etc/kibana/kibana.yml
     """
-    render_file(
-        'kibana.yml.j2', KIBANA_YML_PATH, {})
+    render_file('kibana.yml.j2', KIBANA_YML_PATH, {})
     set_flag('kibana.yml.available')
 
 

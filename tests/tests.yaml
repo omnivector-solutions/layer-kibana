@@ -1,5 +1,0 @@
-bootstrap: false
-reset: false
-makefile:
-  - lint
-  - test

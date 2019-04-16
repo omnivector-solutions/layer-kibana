@@ -32,7 +32,7 @@ Following deployment and the exposing of the kibana application (`juju expose ki
 access the kibana dashboard at the ip address of the kibana instance with the username 'admin'.
 Find the password in the kibana configuration with:
 
-    juju config kibana admin-password
+    juju config kibana kibana-password
 
 
 # Copyright

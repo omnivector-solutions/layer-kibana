@@ -3,11 +3,11 @@ includes:
   - 'layer:elastic-base'
   - 'layer:elasticsearch-client'
   - 'layer:nginx'
-  - 'interface:http'
+  - 'layer:leadership'
+  - 'interface:host-port'
+  - 'interface:elasticsearch-user-credentials'
 options:
-  basic:
-    packages:
-      - apache2-utils
   elastic-base:
-    elastic-pkg: "kibana"
+    elastic-pkgs:
+      - "kibana"
 repo: "https://github.com/omnivector-solutions/layer-kibana"

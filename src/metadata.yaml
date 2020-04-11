@@ -19,9 +19,12 @@ series:
 - xenial
 - bionic
 subordinate: false
+requires:
+  kibana-credentials:
+    interface: "elasticsearch-user-credentials"
 provides:
   http:
-    interface: "http"
+    interface: "host-port"
 extra-bindings:
   public:
   cluster:
